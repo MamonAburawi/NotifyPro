@@ -1,8 +1,29 @@
 package com.mamon.notifypro.utils
 
 object Constants {
-    const val NOTIFICATION_SENT_SUCCESSFULLY=1
-    const val BASE_URL ="https://fcm.googleapis.com/"
-    const val SHARED_PREFERNCE_NAME = "sharedPrefernce"
+    const val SHARED_PREFERENCE = "sharedPreference"
     const val TOKEN = "token"
+
+    /** Request method **/
+    const val POST = "POST"
+
+    /** Properties keys **/
+    const val CONTENT_TYPE = "Content-Type"
+    const val ACCEPT = "Accept"
+    const val AUTHORIZATION = "Authorization"
+
+    /** Properties values **/
+    const val APPLICATION_JSON = "application/json"
+
+    /** Root keys **/
+    const val NOTIFICATION = "notification"
+    const val DATA = "data"
+
+    /** FCM **/
+    const val API_URL_FCM = "https://fcm.googleapis.com/fcm/send"
+
+    /** notification **/
+    const val CHANNEL_ID = "ChannelId"
+    const val CHANNEL_NAME = "ChannelName"
+
 }

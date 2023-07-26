@@ -3,16 +3,13 @@ package com.mamon.notifypro.utils
 import android.content.Context
 import com.google.firebase.messaging.FirebaseMessagingService
 
-object SharedPreferencesManager {
+class SharedPreferencesManager(context: Context) {
+    private val sharePref = context.getSharedPreferences(Constants.SHARED_PREFERENCE, FirebaseMessagingService.MODE_PRIVATE)
+    private val editor = sharePref.edit()
 
-    fun saveToken(context: Context, token:String?){
-        context.getSharedPreferences(Constants.SHARED_PREFERNCE_NAME, FirebaseMessagingService.MODE_PRIVATE).edit().putString(
-            Constants.TOKEN, token).apply()
+    fun saveToken(token:String?) {
+        editor.putString(Constants.TOKEN, token).apply()
     }
 
-    fun getToken(context: Context):String?{
-        return context.getSharedPreferences(Constants.SHARED_PREFERNCE_NAME, FirebaseMessagingService.MODE_PRIVATE).getString(
-            Constants.TOKEN, null)
-    }
-
+    fun getToken() = sharePref.getString(Constants.TOKEN, null)
 }

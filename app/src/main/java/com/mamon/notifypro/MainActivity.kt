@@ -3,15 +3,15 @@ package com.mamon.notifypro
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.mamon.notifypro.databinding.ActivityMainBinding
+import com.mamon.notifypro.utils.*
 import com.mamon.notifypro.model.Notification
-import com.mamon.notifypro.utils.getToken
-import org.json.JSONObject
+
 
 /**
  * Created by Mamon Aburawi on 24/7/2023.
@@ -33,8 +33,7 @@ class MainActivity : AppCompatActivity() {
 
         askNotificationPermission()
 
-        fireBasePush.build(serverKey)
-
+        fireBasePush.build(serverKey,packageName)
 
 
         getToken { token ->
@@ -44,32 +43,30 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-
     fun onSendClick() {
-
 
         val title = binding.title.text?.trim().toString()
         val description = binding.message.text?.trim().toString()
+        val smallIcon = getDrawableName(R.drawable.ic_no_connection)
+        val largeIcon = getDrawableName(R.drawable.ic_notify)
+
         val token = binding.token.text?.trim().toString()
-//        val token = SharedPreferencesManager.getToken(this)
 
 
-        val notification = Notification(title = title, body = description)
-
-        val yourExtraData = JSONObject().put("key", "value")
-
-        fireBasePush
-            .setNotification(notification)
-//            .setData(yourExtraData)
-            .setOnFinishPush {  }
-
-
+        val notification = Notification(
+            title = title,
+            description = description,
+            smallIcon = smallIcon,
+            largeIcon = largeIcon
+        )
+        fireBasePush.setNotification(notification)
         fireBasePush.sendToToken(token)
+        fireBasePush.setOnFinishPush {
+            Toast.makeText(this,"send",Toast.LENGTH_SHORT).show()
 
-
+        }
 
     }
-
 
 
 
